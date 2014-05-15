@@ -76,6 +76,7 @@ endif
 " Map F2, F3 for NERDTree
 map <F2> <ESC><C-w>w
 map <F3> <ESC>:NERDTreeToggle<CR>
-map <F4> <ESC>:NERDTreeClose<CR>
 
+" Save more history information
+set history=200
 
