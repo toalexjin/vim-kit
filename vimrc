@@ -77,6 +77,20 @@ endif
 map <F2> <ESC><C-w>w
 map <F3> <ESC>:NERDTreeToggle<CR>
 
+" NERDTree settings
+let NERDTreeWinSize=60
+
 " Save more history information
 set history=200
+
+" ctrlp settings
+set wildignore+=*/tmp/*,*/target/*,*/_build/*
+let g:ctrlp_custom_ignore = {
+ \ 'dir': '\v[\/]\.(git|hg|svn)$',
+ \ 'file': '\v\.(class|gz|htm|html|jar|jpeg|jpg|json|log|png|properties|rptdesign|so|swp|txt|vmdk|war|zip)$',
+ \ }
+let g:ctrlp_match_window = 'max:20,results:100'
+let g:ctrlp_by_filename = 1
+let g:ctrlp_max_files=100000
+
 
