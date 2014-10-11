@@ -71,6 +71,7 @@ endif
 " Use whitespace instead of tab for java files
 if has("autocmd")
 	autocmd FileType java setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
+	autocmd FileType groovy setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 endif
 
 " Map F2, F3 for NERDTree
@@ -93,4 +94,6 @@ let g:ctrlp_match_window = 'max:20,results:100'
 let g:ctrlp_by_filename = 1
 let g:ctrlp_max_files=100000
 
+let &termencoding=&encoding
+set fileencodings=utf-8,gbk,ucs-bom,latin1
 
