@@ -5,7 +5,7 @@ This vimrc file supports vim vundle plugin management and a couple of useful vim
 
 Installation
 ------------
-1.  Login as root
+1.  Login as `root`
 2.  mkdir /git
 3.  cd /git
 4.  git clone https://github.com/toalexjin/vimrc.git
@@ -16,6 +16,7 @@ Installation
 9.  git clone https://github.com/kien/ctrlp.vim.git
 10. git clone https://github.com/msanders/snipmate.vim.git
 11. git clone https://github.com/vim-scripts/Vim-JDE.git
+12. Double check access right, make sure everybody could read all above folders and files.
 
 
 User Environment Setup
@@ -26,9 +27,9 @@ User Environment Setup
 
 Usage
 -----
-- Press <F3> to turn on NERDTree
-- Press <F4> to refresh the tree
-- Press <F2> to switch window
+- Press F3 to turn on NERDTree
+- Press F4 to refresh the tree
+- Press F2 to switch window
 - Press ctrl+p to show function & variable list
 - ......
 
