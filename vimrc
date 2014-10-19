@@ -18,7 +18,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 Plugin 'msanders/snipmate.vim'
-Plugin 'vim-scripts/Vim-JDE'
+" Plugin 'vim-scripts/Vim-JDE'
 
 
 " The following are examples of different formats supported.
