@@ -20,6 +20,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'msanders/snipmate.vim'
 " Plugin 'vim-scripts/Vim-JDE'
 
+Plugin 'gabrielelana/vim-markdown'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
