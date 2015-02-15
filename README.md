@@ -1,7 +1,6 @@
 # Introduction
 This vimrc file supports vim vundle plugin management and a couple of useful vim plugins.
 
-
 ## Install
 1. Login as `root`
 2. mkdir /git
@@ -10,9 +9,10 @@ This vimrc file supports vim vundle plugin management and a couple of useful vim
 5. mkdir /git/vim-bundles
 6. cd /git/vim-bundles
 7. git clone https://github.com/gmarik/Vundle.vim.git
-8. vim // Open VIM editor.
-9. :PluginInstall // Install VIM plugins.
-10.Double check access right, make sure everybody could read all above folders and files.
+8. ln -s /git/vimrc/vimrc ~/.vimrc
+9. vim // Open VIM editor.
+10. `:PluginInstall` // Install VIM plugins.
+11.Double check access right, make sure everybody could read all above folders and files.
 
 ## Update VIM plugins
 1. Login as `root`
@@ -23,12 +23,10 @@ This vimrc file supports vim vundle plugin management and a couple of useful vim
 1. Login as a regular Linux user
 2. ln -s /git/vimrc/vimrc ~/.vimrc
 
-
 ## Usage
 - Press F3 to turn on NERDTree
 - Press F4 to refresh the tree
 - Press F2 to switch window
 - Press ctrl+p to show function & variable list
-- `:h vundle` Vundle plugin management help
-
+- `:h vundle`: Vundle plugin management help
 
