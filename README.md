@@ -12,7 +12,7 @@ This vimrc file supports vim vundle plugin management and a couple of useful vim
 8. ln -s /git/vimrc/vimrc ~/.vimrc
 9. vim // Open VIM editor.
 10. `:PluginInstall` // Install VIM plugins.
-11.Double check access right, make sure everybody could read all above folders and files.
+11. Double check access right, make sure everybody could read all above folders and files.
 
 ## Update VIM plugins
 1. Login as `root`
