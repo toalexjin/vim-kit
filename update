@@ -21,6 +21,13 @@ runcmd() {
 	fi
 }
 
+# update vimrc itself first!
+runcmd "cd $gitdir/vimrc"
+if ((`git status -s | wc -l` == 0))
+then
+	runcmd "git pull"
+fi
+
 if [ ! -f "$gitdir/vimrc/vimrc" ]
 then
 	failure 'Project vimrc is not downloaded.' '' 'Please run:' "    cd $gitdir" '    git clone https://github.com/toalexjin/vimrc.git'
@@ -58,7 +65,7 @@ do
 done
 
 # ln -s ~/git/vimrc/vimrc ~/.vimrc
-if [ -f ~/.vimrc ]
+if [ -L ~/.vimrc -o -f ~/.vimrc ]
 then
 	if [ ! "$gitdir/vimrc/vimrc" -ef ~/.vimrc ]
 	then
@@ -67,13 +74,6 @@ then
 	fi
 else
 	runcmd "ln -s $gitdir/vimrc/vimrc ~/.vimrc"
-fi
-
-# update vimrc itself
-runcmd "cd $gitdir/vimrc"
-if ((`git status -s | wc -l` == 0))
-then
-	runcmd "git pull"
 fi
 
 # Success
