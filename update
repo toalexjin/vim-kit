@@ -1,0 +1,81 @@
+#!/bin/bash
+
+gitdir=~/git
+plugindir=$gitdir/vim-plugins
+
+failure() {
+	for ((i=1;i<=$#;i++))
+	do
+		echo "${!i}" 1>&2
+	done
+
+	exit 1
+}
+
+runcmd() {
+	echo "$1"
+
+	if ! eval "$1"
+	then
+		failure $'\nFailed!'
+	fi
+}
+
+if [ ! -f "$gitdir/vimrc/vimrc" ]
+then
+	failure 'Project vimrc is not downloaded.' '' 'Please run:' "    cd $gitdir" '    git clone https://github.com/toalexjin/vimrc.git'
+fi
+
+# Get a list of VIM plugins
+v1=`cat $gitdir/vimrc/vimrc | sed -nr '/^[ \t]*Plugin[ \t]+'.*\\\\/.*'/p' | awk '{print $2}'`
+v1="${v1//\// }"
+v1="${v1//\'/ }"
+plugins=($v1)
+
+if ((${#plugins[@]} % 2 != 0))
+then
+	failure "The plugin list in file $gitdir/vimrc/vimrc is wrong, please check."
+fi
+
+# Create folder ~/git/vim-plugins
+if [ ! -d "$plugindir" ]
+then
+	runcmd "mkdir -p $plugindir"
+fi
+
+for ((i=0;i<${#plugins[@]};i+=2))
+do
+	subdir="$plugindir/${plugins[i+1]}"
+
+	if [ -d "$subdir" ]
+	then
+		runcmd "cd $subdir"
+		runcmd "git pull"
+	else
+		runcmd "cd $plugindir"
+		runcmd "git clone https://github.com/${plugins[i]}/${plugins[i+1]}.git"
+	fi
+done
+
+# ln -s ~/git/vimrc/vimrc ~/.vimrc
+if [ -f ~/.vimrc ]
+then
+	if [ ! "$gitdir/vimrc/vimrc" -ef ~/.vimrc ]
+	then
+		runcmd "mv -f ~/.vimrc ~/.vimrc.old"
+		runcmd "ln -s $gitdir/vimrc/vimrc ~/.vimrc"
+	fi
+else
+	runcmd "ln -s $gitdir/vimrc/vimrc ~/.vimrc"
+fi
+
+# update vimrc itself
+runcmd "cd $gitdir/vimrc"
+if ((`git status -s | wc -l` == 0))
+then
+	runcmd "git pull"
+fi
+
+# Success
+echo -e "\nDone! All VIM plugins have been installed/updated to latest!\n"
+
