@@ -1,7 +1,9 @@
 #!/bin/bash
 
+vimprofile=~/.vimrc
 gitdir=~/git
 vimkitdir="$gitdir/vim-kit"
+vimkitfile="$gitdir/vim-kit/vimrc.vim"
 plugindir="$gitdir/vim-plugins"
 
 failure() {
@@ -40,20 +42,20 @@ then
 	run_cmd "git pull"
 fi
 
-if [ ! -f "$vimkitdir/vimrc" ]
+if [ ! -f "$vimkitfile" ]
 then
-	failure "Could not find file '$vimkitdir/vimrc'."
+	failure "Could not find file '$vimkitfile'."
 fi
 
 # Get a list of VIM plugins
-v1=`cat "$vimkitdir/vimrc" | sed -nr '/^[ \t]*Plugin[ \t]+'.*\\\\/.*'/p' | awk '{print $2}'`
+v1=`cat "$vimkitfile" | sed -nr '/^[ \t]*Plugin[ \t]+'.*\\\\/.*'/p' | awk '{print $2}'`
 v1="${v1//\// }"
 v1="${v1//\'/ }"
 plugins=($v1)
 
 if ((${#plugins[@]} == 0 || ${#plugins[@]} % 2 != 0))
 then
-	failure "The plugin list in file '$vimkitdir/vimrc' is incorrect."
+	failure "The plugin list in file '$vimkitfile' is incorrect."
 fi
 
 # Create folder ~/git/vim-plugins
@@ -76,16 +78,16 @@ do
 	fi
 done
 
-# ln -s ~/git/vim-kit/vimrc ~/.vimrc
-if [ -L ~/.vimrc -o -f ~/.vimrc ]
+# ln -s ~/git/vim-kit/vimrc.vim ~/.vimrc
+if [ -L "$vimprofile" -o -f "$vimprofile" ]
 then
-	if [ ! "$vimkitdir/vimrc" -ef ~/.vimrc ]
+	if [ ! "$vimkitfile" -ef "$vimprofile" ]
 	then
-		run_cmd "mv -f ~/.vimrc ~/.vimrc.old"
-		run_cmd "ln -s '$vimkitdir/vimrc' ~/.vimrc"
+		run_cmd "mv -f '$vimprofile' '$vimprofile.old'"
+		run_cmd "ln -s '$vimkitfile' '$vimprofile'"
 	fi
 else
-	run_cmd "ln -s '$vimkitdir/vimrc' ~/.vimrc"
+	run_cmd "ln -s '$vimkitfile' '$vimprofile'"
 fi
 
 # Success
