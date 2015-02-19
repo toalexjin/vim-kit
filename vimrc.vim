@@ -13,15 +13,11 @@ call vundle#begin("~/git/vim-plugins")
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-
-
-Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
 Plugin 'msanders/snipmate.vim'
-" Plugin 'vim-scripts/Vim-JDE'
-
-Plugin 'gabrielelana/vim-markdown'
 Plugin 'fatih/vim-go'
+Plugin 'gabrielelana/vim-markdown'
 
 
 " The following are examples of different formats supported.

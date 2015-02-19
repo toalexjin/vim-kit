@@ -90,6 +90,17 @@ else
 	run_cmd "ln -s '$vimkitfile' '$vimprofile'"
 fi
 
+# run helptags for each plugin.
+for ((i=0;i<${#plugins[@]};i+=2))
+do
+	docdir="$plugindir/${plugins[i+1]}/doc"
+
+	if [ -d "$docdir" ]
+	then
+		run_cmd "vim --noplugin -n -c 'helptags $docdir | q'"
+	fi
+done
+
 # Success
 echo -e "\nDone! All VIM plugins have been installed/updated to latest!\n"
 
