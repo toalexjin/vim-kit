@@ -21,6 +21,8 @@ Plugin 'msanders/snipmate.vim'
 " Plugin 'vim-scripts/Vim-JDE'
 
 Plugin 'gabrielelana/vim-markdown'
+Plugin 'fatih/vim-go'
+
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
