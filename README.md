@@ -9,9 +9,11 @@ make it support VIM plugin management and some VIM plugins.
 5. ~/git/vim-kit/update // Do `install` as well as `update`.
 
 ## Examples
-- Press `F3` to turn on/off file tree (Plugin `NERDTree`).
-- Press `F4` to refresh file tree.
-- Press `F2` to switch window.
-- Press `ctrl+p` to show function & variable list.
-- `:h vundle`: VIM Plugin manager help (Plugin `Vundle`).
-
+- Press `<F2>` to switch windows.
+- Press `<F3>` to turn on/off code tagbar/outline (Plugin `tagbar`).
+- Press `<F4>` to turn on/off file browse tree (Plugin `NERDTree`).
+- Press `<F5>` to refresh file browse tree.
+- Press `<ctrl+p>` to show function & variable list.
+- `:h vundle`: Show help of plugin manager `Vundle`.
+- `:h tagbar`: Show help of plugin `tagbar`.
+- `:h vim-go`: Show help of plugin `vim-go`.

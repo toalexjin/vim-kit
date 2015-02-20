@@ -16,9 +16,9 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'msanders/snipmate.vim'
+Plugin 'majutsushi/tagbar'
 Plugin 'fatih/vim-go'
 Plugin 'gabrielelana/vim-markdown'
-
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -79,8 +79,9 @@ endif
 
 " Map F2, F3 for NERDTree
 map <F2> <ESC><C-w>w
-map <F3> <ESC>:NERDTreeToggle<CR>
-map <F4> <ESC>R
+map <F3> <ESC>:TagbarToggle<CR><C-w>w
+map <F4> <ESC>:NERDTreeToggle<CR>
+map <F5> <ESC>R
 
 " NERDTree settings
 let NERDTreeWinSize=60
