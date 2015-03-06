@@ -19,6 +19,8 @@ Plugin 'msanders/snipmate.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'fatih/vim-go'
 Plugin 'gabrielelana/vim-markdown'
+Plugin 'nsf/gocode',{'rtp':'vim/'}
+
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.

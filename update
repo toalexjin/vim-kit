@@ -12,6 +12,8 @@ failure() {
 		echo "${!i}" 1>&2
 	done
 
+	echo $'\nFailed!'
+
 	exit 1
 }
 
@@ -20,7 +22,7 @@ run_cmd() {
 
 	if ! eval "$1"
 	then
-		failure $'\nFailed!'
+		failure
 	fi
 }
 
@@ -35,6 +37,12 @@ get_current_branch_name() {
 	echo -n "$name"
 }
 
+# Check if ctags has been installed or not
+if ! which ctags > /dev/null 2>&1
+then
+	failure 'Please run "sudo yum install ctags" first.'
+fi
+
 # update vim-kit first!
 run_cmd "cd '$vimkitdir'"
 if [ `get_current_branch_name` == "master" -a `git status -s | wc -l` -eq 0 ]
@@ -48,7 +56,7 @@ then
 fi
 
 # Get a list of VIM plugins
-v1=`cat "$vimkitfile" | sed -nr '/^[ \t]*Plugin[ \t]+'.*\\\\/.*'/p' | awk '{print $2}'`
+v1=`cat "$vimkitfile" | sed -nr '/^[ \t]*Plugin[ \t]+.*/p' | awk '{print $2}' | awk 'BEGIN{FS=","} {print $1}'`
 v1="${v1//\// }"
 v1="${v1//\'/ }"
 plugins=($v1)
@@ -100,6 +108,40 @@ do
 		run_cmd "vim --noplugin -n -c 'helptags $docdir | q'"
 	fi
 done
+
+# Build gocode and move gocode binary to $HOME/bin
+if which go > /dev/null 2>&1
+then
+	if [ -z "$GOROOT" ]
+	then
+		failure 'Environment variable GOROOT is not set.'
+	fi
+
+	gocodedir="$plugindir/gocode"
+	if [ -d "$gocodedir" ]
+	then
+		run_cmd "cd '$gocodedir'"
+		run_cmd "go build"
+
+		if [ ! -f "$gocodedir/gocode" ]
+		then
+			failure "gocode could NOT be compiled."
+		fi
+
+		if [ ! -d ~/bin ]
+		then
+			mkdir ~/bin
+		fi
+
+		run_cmd "mv -f '$gocodedir/gocode' ~/bin/."
+
+		# Check gocode is in PATH
+		if ! which gocode > /dev/null 2>&1
+		then
+			failure 'Please add "export PATH=$PATH:~/bin" to ~/.bash_profile, re-log into system and try again.'
+		fi
+	fi
+fi
 
 # Success
 echo -e "\nDone! All VIM plugins have been installed/updated to latest!\n"
