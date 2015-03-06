@@ -131,6 +131,9 @@ then
 	run_cmd "go install golang.org/x/tools/cmd/goimports"
 	run_cmd "go install golang.org/x/tools/cmd/gorename"
 
+	# 9fans.net/go is used by godef
+	github_pull "$GOPATH/src/9fans.net" "9fans" "go"
+
 	# Update all go modules
 	gomods=()
 	gomods+=(jstemmer gotags '')
@@ -138,7 +141,7 @@ then
 	gomods+=(kisielk errcheck '')
 	gomods+=(nsf gocode '')
 	gomods+=(golang lint 'golint')
-	#gomods+=(rogpeppe godef)
+	gomods+=(rogpeppe godef)
 
 	for ((i=0;i<${#gomods[@]};i+=3))
 	do
