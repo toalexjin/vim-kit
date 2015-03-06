@@ -37,6 +37,26 @@ get_current_branch_name() {
 	echo -n "$name"
 }
 
+github_pull() {
+	local parentdir="$1"
+	local author="$2"
+	local project="$3"
+
+	if [ ! -d "$parentdir" ]
+	then
+		run_cmd "mkdir -p '$parentdir'"
+	fi
+
+	if [ -d "$parentdir/$project" ]
+	then
+		run_cmd "cd '$parentdir/$project'"
+		run_cmd "git pull"
+	else
+		run_cmd "cd '$parentdir'"
+		run_cmd "git clone 'https://github.com/${author}/${project}.git'"
+	fi
+}
+
 # Check if ctags has been installed or not
 if ! which ctags > /dev/null 2>&1
 then
@@ -74,16 +94,7 @@ fi
 
 for ((i=0;i<${#plugins[@]};i+=2))
 do
-	subdir="$plugindir/${plugins[i+1]}"
-
-	if [ -d "$subdir" ]
-	then
-		run_cmd "cd '$subdir'"
-		run_cmd "git pull"
-	else
-		run_cmd "cd '$plugindir'"
-		run_cmd "git clone 'https://github.com/${plugins[i]}/${plugins[i+1]}.git'"
-	fi
+	github_pull "$plugindir" "${plugins[i]}" "${plugins[i+1]}"
 done
 
 # ln -s ~/git/vim-kit/vimrc.vim ~/.vimrc
@@ -110,36 +121,48 @@ do
 done
 
 # Build gocode and move gocode binary to $HOME/bin
-if which go > /dev/null 2>&1
+if [ -n "$GOROOT" -a -x "$GOROOT/bin/go" ]
 then
-	if [ -z "$GOROOT" ]
+	export GOPATH="$plugindir/go"
+
+	# Update golang.org/x/tools first because other go modules depend on it.
+	github_pull "$GOPATH/src/golang.org/x" "golang" "tools"
+	run_cmd "go install golang.org/x/tools/cmd/oracle"
+	run_cmd "go install golang.org/x/tools/cmd/goimports"
+	run_cmd "go install golang.org/x/tools/cmd/gorename"
+
+	# Update all go modules
+	gomods=()
+	gomods+=(jstemmer gotags '')
+	gomods+=(kisielk gotool '')
+	gomods+=(kisielk errcheck '')
+	gomods+=(nsf gocode '')
+	gomods+=(golang lint 'golint')
+	#gomods+=(rogpeppe godef)
+
+	for ((i=0;i<${#gomods[@]};i+=3))
+	do
+		github_pull "$GOPATH/src/github.com/${gomods[i]}" "${gomods[i]}" "${gomods[i+1]}"
+
+		if [ -z "${gomods[i+2]}" ]
+		then
+			run_cmd "go install github.com/${gomods[i]}/${gomods[i+1]}"
+		else
+			run_cmd "go install github.com/${gomods[i]}/${gomods[i+1]}/${gomods[i+2]}"
+		fi
+	done
+
+	if [ ! -d ~/bin ]
 	then
-		failure 'Environment variable GOROOT is not set.'
+		run_cmd "mkdir ~/bin"
 	fi
 
-	gocodedir="$plugindir/gocode"
-	if [ -d "$gocodedir" ]
+	run_cmd "cp -Rf $GOPATH/bin/* ~/bin/."
+
+	# Check if ~/bin is in $PATH
+	if ! which gotags > /dev/null 2>&1
 	then
-		run_cmd "cd '$gocodedir'"
-		run_cmd "go build"
-
-		if [ ! -f "$gocodedir/gocode" ]
-		then
-			failure "gocode could NOT be compiled."
-		fi
-
-		if [ ! -d ~/bin ]
-		then
-			mkdir ~/bin
-		fi
-
-		run_cmd "mv -f '$gocodedir/gocode' ~/bin/."
-
-		# Check gocode is in PATH
-		if ! which gocode > /dev/null 2>&1
-		then
-			failure 'Please add "export PATH=$PATH:~/bin" to ~/.bash_profile, re-log into system and try again.'
-		fi
+		failure 'Please add "export PATH=$PATH:~/bin" to ~/.bash_profile, re-log into system and try again.'
 	fi
 fi
 
