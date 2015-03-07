@@ -116,7 +116,7 @@ do
 
 	if [ -d "$docdir" ]
 	then
-		run_cmd "vim --noplugin -n -c 'helptags $docdir | q'"
+		run_cmd "vim --noplugin -n -c 'helptags $docdir | q' > /dev/null 2>&1"
 	fi
 done
 
