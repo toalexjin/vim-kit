@@ -58,9 +58,15 @@ github_pull() {
 }
 
 # Check if ctags has been installed or not
+if ! which git > /dev/null 2>&1
+then
+	failure '"git" is not installed.'
+fi
+
+# Check if ctags has been installed or not
 if ! which ctags > /dev/null 2>&1
 then
-	failure 'Please run "sudo yum install ctags" first.'
+	failure 'Please run "sudo yum install ctags" or "apt-get install ctags" first.'
 fi
 
 # update vim-kit first!
@@ -96,18 +102,6 @@ for ((i=0;i<${#plugins[@]};i+=2))
 do
 	github_pull "$plugindir" "${plugins[i]}" "${plugins[i+1]}"
 done
-
-# ln -s ~/git/vim-kit/vimrc.vim ~/.vimrc
-if [ -L "$vimprofile" -o -f "$vimprofile" ]
-then
-	if [ ! "$vimkitfile" -ef "$vimprofile" ]
-	then
-		run_cmd "mv -f '$vimprofile' '$vimprofile.old'"
-		run_cmd "ln -s '$vimkitfile' '$vimprofile'"
-	fi
-else
-	run_cmd "ln -s '$vimkitfile' '$vimprofile'"
-fi
 
 # run helptags for each plugin.
 for ((i=0;i<${#plugins[@]};i+=2))
@@ -167,6 +161,18 @@ then
 	then
 		failure 'Please add "export PATH=$PATH:~/bin" to ~/.bash_profile, re-log into system and try again.'
 	fi
+fi
+
+# ln -s ~/git/vim-kit/vimrc.vim ~/.vimrc
+if [ -L "$vimprofile" -o -f "$vimprofile" ]
+then
+	if [ ! "$vimkitfile" -ef "$vimprofile" ]
+	then
+		run_cmd "mv -f '$vimprofile' '$vimprofile.old'"
+		run_cmd "ln -s '$vimkitfile' '$vimprofile'"
+	fi
+else
+	run_cmd "ln -s '$vimkitfile' '$vimprofile'"
 fi
 
 # Success

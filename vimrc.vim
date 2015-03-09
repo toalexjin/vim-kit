@@ -1,5 +1,9 @@
 " Load system vimrc.
-source /etc/vimrc
+if filereadable("/etc/vim/vimrc")
+	source /etc/vim/vimrc
+elseif filereadable("/etc/vimrc")
+	source /etc/vimrc
+endif
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
