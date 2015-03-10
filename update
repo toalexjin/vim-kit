@@ -176,5 +176,5 @@ else
 fi
 
 # Success
-echo -e "\nDone! All VIM plugins have been installed/updated to latest!\n"
+echo -e "\nDone! Everything has been installed/updated to latest!\n"
 

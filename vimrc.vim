@@ -24,6 +24,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'fatih/vim-go'
 Plugin 'gabrielelana/vim-markdown'
 Plugin 'nsf/gocode',{'rtp':'vim/'}
+Plugin 'bronson/vim-visual-star-search'
 
 
 " The following are examples of different formats supported.

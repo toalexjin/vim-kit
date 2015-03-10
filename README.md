@@ -1,8 +1,8 @@
 # VIM Kit
-VIM Kit offers a very easy way to enhance your VIM editor,
-make it support VIM plugin management and some VIM plugins.
+VIM Kit offers a very easy way to enhance your VIM editor
+by integrating with some quite useful VIM plugins.
 
-## Install (or Update VIM plugins to latest)
+## Install (or update everything to latest)
 1. mkdir ~/git
 3. cd ~/git
 4. git clone https://github.com/toalexjin/vim-kit.git
@@ -10,11 +10,18 @@ make it support VIM plugin management and some VIM plugins.
 
 ## Examples
 - Press `<F2>` to switch windows.
-- Press `<F3>` to turn on/off code tagbar/outline (Plugin `tagbar`).
-- Press `<F4>` to turn on/off file browse tree (Plugin `NERDTree`).
-- Press `<F5>` to refresh file browse tree.
-- Press `<ctrl+p>` to show function & variable list.
-- At `Insert mode`, Press `<ctrl+x><ctrl+o>` for code autocompletion.
+- Press `<F3>` to toggle source code outline panel (Plugin `tagbar`).
+- Press `<F4>` to toggle file browse panel (Plugin `NERDTree`).
+- Press `<F5>` to refresh file browse panel.
+- Press `<ctrl-p>` to show function & variable list.
+- Select some text using Vim's visual mode, then hit `*` or `#` to search for it.
+- Open a go source file, enter `Insert Mode`, then press `<ctrl-x><ctrl-o>` for code autocompletion.
 - `:h vundle`: Show help of plugin manager `Vundle`.
 - `:h tagbar`: Show help of plugin `tagbar`.
 - `:h vim-go`: Show help of plugin `vim-go`.
+
+## Screenshots
+![VIM Tree Panel](screenshots/vim-tree.png)
+![VIM Outline Panel](screenshots/vim-outline.png)
+![VIM Autocompletion](screenshots/vim-autocompletion.png)
+
