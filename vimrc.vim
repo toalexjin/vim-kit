@@ -65,6 +65,9 @@ set hidden
 " set tab and indent size
 set tabstop=4 shiftwidth=4 softtabstop=4
 
+" enable hlsearch
+set hlsearch
+
 " show tab and white space
 set list
 if has("gui_running") || $COLORTERM == "gnome-terminal"
