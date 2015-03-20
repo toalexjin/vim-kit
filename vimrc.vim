@@ -87,11 +87,12 @@ if has("autocmd")
 	autocmd FileType groovy setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 endif
 
-" Map F2, F3 for NERDTree
+" Map Keys
 map <F2> <ESC><C-w>w
-map <F3> <ESC>:TagbarToggle<CR><C-w>w
-map <F4> <ESC>:NERDTreeToggle<CR>
-map <F5> <ESC>R
+map <F3> <ESC>:hide<CR>
+map <F4> <ESC>:TagbarToggle<CR><C-w>w
+map <F5> <ESC>:NERDTreeToggle<CR>
+map <F6> <ESC>R
 
 " NERDTree settings
 let NERDTreeWinSize=60

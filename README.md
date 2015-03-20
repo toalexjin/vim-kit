@@ -10,9 +10,10 @@ by integrating with some quite useful VIM plugins.
 
 ## Examples
 - Press `<F2>` to switch windows.
-- Press `<F3>` to toggle source code outline panel (Plugin `tagbar`).
-- Press `<F4>` to toggle file browse panel (Plugin `NERDTree`).
-- Press `<F5>` to refresh file browse panel.
+- Press `<F3>` to hide current window.
+- Press `<F4>` to toggle source code outline panel (Plugin `tagbar`).
+- Press `<F5>` to toggle file browse panel (Plugin `NERDTree`).
+- Press `<F6>` to refresh file browse panel.
 - Press `<ctrl-p>` to show function & variable list.
 - Select some text using Vim's visual mode, then hit `*` or `#` to search for it.
 - Open a go source file, enter `Insert Mode`, then press `<ctrl-x><ctrl-o>` for code autocompletion.
