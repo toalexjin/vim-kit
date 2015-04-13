@@ -26,11 +26,11 @@ run_cmd() {
 	fi
 }
 
-# Return: ${get_current_branch_result} (string)
+# Usage: "get_current_branch <branch_name>"
 get_current_branch() {
-	get_current_branch_result=`git branch --no-color | awk '{if (NF==2 && $1=="*") print $2}'`
+	eval "$1='`git branch --no-color | awk '{if ($1=="*") print $2}'`'"
 
-	if [ -z "${get_current_branch_result}" ]
+	if [ -z "${!1}" ]
 	then
 		failure "Curent branch name is unknown. Check 'git branch --no-color'."
 	fi
@@ -70,8 +70,8 @@ fi
 
 # update vim-kit first!
 run_cmd "cd '$vimkitdir'"
-get_current_branch
-if [ "${get_current_branch_result}" == "master" -a `git status -s | wc -l` -eq 0 ]
+get_current_branch currentname
+if [ "$currentname" == "master" -a `git status -s | wc -l` -eq 0 ]
 then
 	run_cmd "git pull"
 fi
